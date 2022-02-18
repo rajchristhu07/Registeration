@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-Color primaryColor = HexColor("#F7692F");
+Color primaryColor = HexColor("#283265");
 // Color primaryColor = HexColor("#E65100");
 Color primaryColorDark = HexColor("#F7692F");
 Color primaryColorDarkOne = HexColor("#F7692F");
@@ -21,7 +21,7 @@ Color blue = HexColor("#2a9d8f");
 Color dark_blue = HexColor("#264653");
 Color light_orange = HexColor("#f4a261");
 Color yellow = HexColor("#e9c46a");
-Color blackColor = HexColor("#3E4152");
+Color blackColor = HexColor("#000000");
 Color whiteColor = HexColor("#FFFFFF");
 Color whiteColors = HexColor("#FFFFFF");
 Color rose = HexColor("#fae1db");

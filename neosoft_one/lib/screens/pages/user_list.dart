@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../custom_widget/user_dialog.dart';
+
 class UserList extends StatefulWidget {
   @override
   _UserListState createState() => new _UserListState();
@@ -17,7 +19,21 @@ class _UserListState extends State<UserList> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return InkWell(
+      onTap: (){
+        showDialog(context: context,
+            barrierDismissible: false,
+
+            builder: (BuildContext context){
+              return const CustomUserDetailDialogBox(
+                title: "Custom Dialog Demo",
+                descriptions: "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
+                text: "Yes",
+              );
+            }
+        );
+      },
+        child: Column(
       children: [
         Container(
           padding: const EdgeInsets.all(14),
@@ -101,6 +117,7 @@ class _UserListState extends State<UserList> {
           color: HexColor("#E2E2E2"),
         )
       ],
-    );
+    ));
   }
+
 }

@@ -35,8 +35,6 @@ class _LandingPageState extends State<LandingPage> {
           backgroundColor: whiteColor,
         ),
         body: Stack(children: <Widget>[
-
-
         MediaQuery.removePadding(
         context: context,
             removeTop: true,
