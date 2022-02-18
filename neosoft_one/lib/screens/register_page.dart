@@ -97,9 +97,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             right: 0,
                             bottom: 40,
                             child: Icon(
-                              Icons.build_circle_outlined,
+                              Icons.edit,
                               color: Colors.black,
-                              size: 30,
+                              size: 24,
                             ))
                       ],
                     ),
@@ -116,9 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 44,
                       child: TextFormField(
                         key: ValueKey('name'),
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.done),
-                        ),
+
                         keyboardType: TextInputType.name,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
@@ -129,9 +127,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                         style: TextStyle(fontSize: 14),
                         decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.person,color: primaryColor,),
+                            hintText: 'Enter your first name here',
                           hintStyle: TextStyle(
                               fontSize: 14,
                               color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w500),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 15),
@@ -180,9 +181,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                         style: TextStyle(fontSize: 14),
                         decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.person,color: primaryColor,),
+                          hintText: 'Enter your last name here',
                           hintStyle: TextStyle(
                               fontSize: 14,
                               color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w500),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 15),
@@ -231,9 +235,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                         style: TextStyle(fontSize: 14),
                         decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.phone,color: primaryColor,),
+                          hintText: 'Enter your last name here',
                           hintStyle: TextStyle(
                               fontSize: 14,
                               color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w500),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 15),
@@ -282,9 +289,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                         style: TextStyle(fontSize: 14),
                         decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.email,color: primaryColor,),
+                          hintText: 'Enter your last name here',
                           hintStyle: TextStyle(
                               fontSize: 14,
                               color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w500),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 15),
@@ -333,9 +343,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                         style: TextStyle(fontSize: 14),
                         decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.lock,color: primaryColor,),
+                          hintText: 'Enter your last name here',
                           hintStyle: TextStyle(
                               fontSize: 14,
                               color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w500),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 15),
@@ -384,9 +397,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                         style: TextStyle(fontSize: 14),
                         decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.lock,color: primaryColor,),
+                          hintText: 'Enter your last name here',
                           hintStyle: TextStyle(
                               fontSize: 14,
                               color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.w500),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 15),
@@ -411,21 +427,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 6,
+                    height: 10,
                   ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        primary: HexColor("#EC1C24"),
-                        onPrimary: Colors.white,
-                        // side: BorderSide(color: Colors.red, width: 1),
-                        textStyle: TextStyle(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14,
-                            fontFamily: GoogleFonts.montserrat().fontFamily),
-                      ),
+                  FlatButton(
+                    minWidth: MediaQuery.of(context).size.width,
+                      color: primaryColor,
+                      textColor: Colors.white,
                       child: Text('Next'),
-                      onPressed: () {})
+                      onPressed: () {}),
+                  SizedBox(
+                    height: 40,
+                  ),
                 ],
               ),
             )));
