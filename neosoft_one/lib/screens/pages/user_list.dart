@@ -8,7 +8,7 @@ import '../custom_widget/user_dialog.dart';
 
 class UserList extends StatefulWidget {
   @override
-  _UserListState createState() => new _UserListState();
+  _UserListState createState() => _UserListState();
 }
 
 class _UserListState extends State<UserList> {
