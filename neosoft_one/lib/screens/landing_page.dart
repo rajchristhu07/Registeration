@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:neosoftflutter/screens/pages/user_list.dart';
+import 'package:neosoftflutter/screens/register_page.dart';
 
 import '../utility/theme.dart';
 
@@ -70,7 +71,12 @@ class _LandingPageState extends State<LandingPage> {
                       borderRadius: BorderRadius.circular(0),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterPage()),
+                    );
+                  },
                   child: const Text('Register'),
                 ),
               ))

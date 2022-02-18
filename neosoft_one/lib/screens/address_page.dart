@@ -1,0 +1,317 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:neosoftflutter/screens/pages/user_list.dart';
+
+import '../utility/text_style.dart';
+import '../utility/theme.dart';
+
+class AddressPage extends StatefulWidget {
+  @override
+  _AddressPageState createState() => _AddressPageState();
+}
+
+class _AddressPageState extends State<AddressPage> {
+final List<String> _stateList=[
+  "Mumbai",
+  "Chennai"
+];
+final String _currentState="Mumbai";
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          toolbarHeight: 60,
+          elevation: 0,
+          shadowColor: whiteColor,
+          foregroundColor: whiteColor,
+          centerTitle: true,
+          title: Text(
+            "Your Address",
+            textAlign: TextAlign.start,
+            style: TextStyle(
+                color: blackColor, fontSize: 22.0, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: whiteColor,
+        ),
+        body: SingleChildScrollView(
+            physics: ScrollPhysics(),
+            child: Container(
+              padding: EdgeInsets.only(right: 40, left: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 80,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10.0,
+                    ),
+                    child: Container(
+                      height: 44,
+                      child: TextFormField(
+                        key: ValueKey('name'),
+
+                        keyboardType: TextInputType.name,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r"[a-zA-Z]+|\s"))
+                        ],
+                        onChanged: (value) {
+                          // name = value;
+                        },
+                        style: TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.business,color: primaryColor,),
+                          hintText: 'Enter your first name here',
+                          hintStyle: TextStyle(
+                              fontSize: 14,
+                              color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w500),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15),
+
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(0.0)),
+                            borderSide: BorderSide(color: blackColor, width: 1),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(0.0)),
+                            borderSide: BorderSide(color: blackColor, width: 1),
+                          ),
+                          // border: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                          //     borderSide: BorderSide(color: HexColor("#E2E2E2"), width: 1),
+                          //
+                          // ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10.0,
+                    ),
+                    child: Container(
+                      height: 44,
+                      child: TextFormField(
+                        key: ValueKey('name'),
+                        keyboardType: TextInputType.name,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r"[a-zA-Z]+|\s"))
+                        ],
+                        onChanged: (value) {
+                          // name = value;
+                        },
+                        style: TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.business,color: primaryColor,),
+                          hintText: 'Enter your last name here',
+                          hintStyle: TextStyle(
+                              fontSize: 14,
+                              color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w500),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15),
+
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(0.0)),
+                            borderSide: BorderSide(color: blackColor, width: 1),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(0.0)),
+                            borderSide: BorderSide(color: blackColor, width: 1),
+                          ),
+                          // border: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                          //     borderSide: BorderSide(color: HexColor("#E2E2E2"), width: 1),
+                          //
+                          // ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10.0,
+                    ),
+                    child: Container(
+                      height: 44,
+                      child: TextFormField(
+                        key: ValueKey('name'),
+                        keyboardType: TextInputType.name,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r"[a-zA-Z]+|\s"))
+                        ],
+                        onChanged: (value) {
+                          // name = value;
+                        },
+                        style: TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.business,color: primaryColor,),
+                          hintText: 'Enter your last name here',
+                          hintStyle: TextStyle(
+                              fontSize: 14,
+                              color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w500),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15),
+
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(0.0)),
+                            borderSide: BorderSide(color: blackColor, width: 1),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(0.0)),
+                            borderSide: BorderSide(color: blackColor, width: 1),
+                          ),
+                          // border: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                          //     borderSide: BorderSide(color: HexColor("#E2E2E2"), width: 1),
+                          //
+                          // ),
+                        ),
+                      ),
+                    ),
+                  ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                ),
+                child:
+                  Container(
+                      padding: const EdgeInsets.only(
+                          left: 10.0, right: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: blackColor,
+                            // set border color
+                            width: 1.0),
+                        shape: BoxShape.rectangle,
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(0.0)),
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      height: 44,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: _currentState,
+                          items: _stateList.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    color: HexColor("#383838")),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              // _chooseArt = value!;
+                            });
+                          },
+                        ),
+                      )),
+              ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10.0,
+                    ),
+                    child: Container(
+                      height: 44,
+                      child: TextFormField(
+                        key: ValueKey('name'),
+                        keyboardType: TextInputType.name,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r"[a-zA-Z]+|\s"))
+                        ],
+                        onChanged: (value) {
+                          // name = value;
+                        },
+                        style: TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          prefixIcon:  Icon(Icons.business,color: primaryColor,),
+                          hintText: 'Enter your last name here',
+                          hintStyle: TextStyle(
+                              fontSize: 14,
+                              color: HexColor("#383838"),
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w500),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15),
+
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(0.0)),
+                            borderSide: BorderSide(color: blackColor, width: 1),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(0.0)),
+                            borderSide: BorderSide(color: blackColor, width: 1),
+                          ),
+                          // border: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                          //     borderSide: BorderSide(color: HexColor("#E2E2E2"), width: 1),
+                          //
+                          // ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  FlatButton(
+                      minWidth: MediaQuery.of(context).size.width,
+                      height: 50,
+
+                      color: primaryColor,
+                      textColor: Colors.white,
+                      child: const Text('Submit',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold),),
+                      onPressed: () {}),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                ],
+              ),
+            )));
+  }
+
+
+}

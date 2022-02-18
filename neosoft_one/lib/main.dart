@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:neosoftflutter/screens/landing_page.dart';
+import 'package:neosoftflutter/screens/register_page.dart';
 import 'package:neosoftflutter/utility/theme.dart';
 
 void main() {

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:neosoftflutter/screens/address_page.dart';
 import 'package:neosoftflutter/screens/pages/user_list.dart';
 
 import '../utility/text_style.dart';
@@ -427,14 +428,20 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
                   FlatButton(
                     minWidth: MediaQuery.of(context).size.width,
+                      height: 50,
                       color: primaryColor,
                       textColor: Colors.white,
-                      child: Text('Next'),
-                      onPressed: () {}),
+                      child: const Text('Next',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold),),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddressPage()),
+                        );
+                      }),
                   SizedBox(
                     height: 40,
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:neosoftflutter/utility/theme.dart';
 
 import '../../utility/text_style.dart';
 
@@ -102,8 +103,9 @@ class _CustomDialogBoxState extends State<CustomUserDetailDialogBox> {
                                         height: 60.0, width: 60.0, fit: BoxFit.cover),
                                   ),
                                 ),
-                                Text("ajfbadfhjabdsfjasasjfhashjfjashf"),
-                                Text("data"),
+                                SizedBox(height: 10,),
+                                Text("raj@gmail.com",style: titleMediumDefaultTextStyle,),
+                                Text("9597138105",style: titleMediumDefaultTextStyleBlack,),
                               ],
                             )
 
@@ -123,7 +125,7 @@ class _CustomDialogBoxState extends State<CustomUserDetailDialogBox> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  "dj",
+                                  "Raj",
                                   //         widget.contentList[index].name.toString(),
                                   softWrap: true,
                                   style: TextStyle(
@@ -135,10 +137,10 @@ class _CustomDialogBoxState extends State<CustomUserDetailDialogBox> {
                                   height: 6,
                                 ),
                                 Text(
-                                  "dsfsa",
+                                  "Software Engineer",
                                   style: TextStyle(
                                       fontSize: 16,
-                                      color: HexColor("#717171"),
+                                      color: primaryColor,
                                       fontWeight: FontWeight.w600),
                                   textAlign: TextAlign.start,
                                 ),
@@ -216,10 +218,10 @@ class _CustomDialogBoxState extends State<CustomUserDetailDialogBox> {
                       ),
                       Text(
                         "Graduate",
-                        style: paragraphDefaultTextStyle,
+                        style: paragraphRegularDefaultTextStyle,
                       ), Text(
                         "Graduate",
-                        style: paragraphDefaultTextStyle,
+                        style: paragraphRegularDefaultTextStyle,
                       )
 
                     ],
