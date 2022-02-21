@@ -30,10 +30,8 @@ class _UserListState extends State<UserList> {
             barrierDismissible: false,
 
             builder: (BuildContext context){
-              return const CustomUserDetailDialogBox(
-                title: "Custom Dialog Demo",
-                descriptions: "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
-                text: "Yes",
+              return  CustomUserDetailDialogBox(
+                widget.data
               );
             }
         );

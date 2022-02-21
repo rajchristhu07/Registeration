@@ -16,7 +16,7 @@ class DBHelper {
 
   initDb() async {
     io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "user_data.db");
+    String path = join(documentsDirectory.path, "user_tbl.db");
     var theDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     return theDb;
   }
@@ -24,37 +24,13 @@ class DBHelper {
   void _onCreate(Database db, int version) async {
     // When creating the db, create the table
     await db.execute(
-        "CREATE TABLE USER(id INTEGER PRIMARY KEY, firstname TEXT, lastname TEXT, mobileno TEXT,emailId TEXT,  picture TEXT)");
+        "CREATE TABLE USER(id INTEGER PRIMARY KEY, firstname TEXT, lastname TEXT, mobileno TEXT,emailId TEXT,password TEXT,gender TEXT,  picture TEXT,  address TEXT,  landmark TEXT,  city TEXT,  state TEXT,  pincode TEXT)");
   }
 
   Future<User> saveUser(User user) async {
     var dbClient = await db;
     await dbClient.insert("USER", user.toMap());
     return user;
-    // await dbClient.transaction((txn) async {
-    //   return await txn.rawInsert(
-    //       'INSERT INTO USER(firstname, lastname, mobileno, emailid, picture ) VALUES(' +
-    //           '\'' +
-    //           user.firstName! +
-    //           '\'' +
-    //           ',' +
-    //           '\'' +
-    //           user.lastName! +
-    //           '\'' +
-    //           ',' +
-    //           '\'' +
-    //           user.mobileNo! +
-    //           '\'' +
-    //           ',' +
-    //           '\'' +
-    //           user.emailId! +
-    //           '\'' +
-    //           ',' +
-    //           '\'' +
-    //           user.picture.toString() +
-    //           '\'' +
-    //           ')');
-    // });
 
   }
 
@@ -63,9 +39,8 @@ class DBHelper {
     List<Map> list = await dbClient.rawQuery('SELECT * FROM USER');
     List<User> user =  [];
     for (int i = 0; i < list.length; i++) {
-      user.add(User(list[i]["firstname"], list[i]["lastname"], list[i]["mobileno"], list[i]["emailid"], list[i]["picture"]));
+      user.add(User(list[i]["firstname"], list[i]["lastname"], list[i]["mobileno"], list[i]["emailId"],list[i]["password"],list[i]["gender"], list[i]["picture"], list[i]["address"], list[i]["landmark"], list[i]["city"], list[i]["state"], list[i]["pincode"]));
     }
-    print(user.length);
     return user;
   }
 }

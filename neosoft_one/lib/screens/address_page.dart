@@ -5,20 +5,31 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:neosoftflutter/model/user_model.dart';
+import 'package:neosoftflutter/screens/landing_page.dart';
 import 'package:neosoftflutter/screens/pages/user_list.dart';
 
+import '../utility/dbhelper.dart';
 import '../utility/text_style.dart';
 import '../utility/theme.dart';
 
 class AddressPage extends StatefulWidget {
+  User user;
+  AddressPage(this.user);
+
   @override
   _AddressPageState createState() => _AddressPageState();
 }
 
 class _AddressPageState extends State<AddressPage> {
   final List<String> _stateList = ["Mumbai", "Chennai"];
-  final String _currentState = "Mumbai";
+   String _currentState = "Mumbai";
   var _formKey = GlobalKey<FormState>();
+  String address="";
+  String landmark="";
+  String city="";
+  String state="";
+  String pincode="";
 
   void _submit() {
     final isValid = _formKey.currentState!.validate();
@@ -26,7 +37,14 @@ class _AddressPageState extends State<AddressPage> {
       return;
     }
     else{
-      print("yes");
+      var user = User(widget.user.firstName,widget.user.lastName,widget.user.mobileNo,widget.user.emailId,widget.user.password,widget.user.gender,widget.user.picture,address,landmark,city,_currentState,pincode);
+
+      var dbHelper = DBHelper();
+      dbHelper.saveUser(user);
+      Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) =>  LandingPage()),
+      (route) => false);
+
     }
     _formKey.currentState!.save();
   }
@@ -91,7 +109,7 @@ class _AddressPageState extends State<AddressPage> {
                                   RegExp(r"[a-zA-Z]+|\s"))
                             ],
                             onChanged: (value) {
-                              // name = value;
+                              address = value;
                             },
                             style: TextStyle(fontSize: 14),
                             decoration: InputDecoration(
@@ -164,7 +182,7 @@ class _AddressPageState extends State<AddressPage> {
                                   RegExp(r"[a-zA-Z]+|\s"))
                             ],
                             onChanged: (value) {
-                              // name = value;
+                              landmark = value;
                             },
                             style: TextStyle(fontSize: 14),
                             decoration: InputDecoration(
@@ -237,7 +255,7 @@ class _AddressPageState extends State<AddressPage> {
                                   RegExp(r"[a-zA-Z]+|\s"))
                             ],
                             onChanged: (value) {
-                              // name = value;
+                              city = value;
                             },
                             style: TextStyle(fontSize: 14),
                             decoration: InputDecoration(
@@ -325,7 +343,7 @@ class _AddressPageState extends State<AddressPage> {
                                 }).toList(),
                                 onChanged: (value) {
                                   setState(() {
-                                    // _chooseArt = value!;
+                                    _currentState = value!;
                                   });
                                 },
                               ),
@@ -351,7 +369,7 @@ class _AddressPageState extends State<AddressPage> {
                                   RegExp(r'[0-9]'))
                             ],
                             onChanged: (value) {
-                              // name = value;
+                              pincode = value;
                             },
                             style: TextStyle(fontSize: 14),
                             decoration: InputDecoration(

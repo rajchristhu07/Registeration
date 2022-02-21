@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:animate_icons/animate_icons.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,41 +21,55 @@ class RegisterPage extends StatefulWidget {
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
-
 class _RegisterPageState extends State<RegisterPage> {
   File? _image;
   final picker = ImagePicker();
   Uint8List? _bytesImage;
-  String? imgString;
+  AnimateIconController? controller;
+
+  String imgString="";
+  String firstName="";
+  String lastName="";
+  String phoneNo="";
+  String emailId="";
+  String gender="";
   @override
   void initState() {
+    controller = AnimateIconController();
+
     super.initState();
   }
+
   String?  base64Image;
+  String password="";
 
   var _formKey = GlobalKey<FormState>();
   ByteData? imageData;
+  String _selectedGender = 'male';
+  bool pas = false;
 
   Future<void> _submit() async {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
     } else {
-      rootBundle.load(_image!.path)
-          .then((data) => {
-            print(data),
-            setState(() => imageData = data)});
-      var user = User("firstname","lastname","mobileno","emailId",imgString!);
-      var dbHelper = DBHelper();
-      dbHelper.saveUser(user);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AddressPage()),
-      );
+      if (imgString!="") {
+        rootBundle.load(_image!.path)
+            .then((data) => {
+          setState(() => imageData = data)});
+        var user = User(firstName,lastName,phoneNo,emailId,password,_selectedGender,imgString,"","","","","");
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AddressPage(user)),
+        );
+      }
+
     }
     _formKey.currentState!.save();
   }
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +177,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   RegExp(r"[a-zA-Z]+|\s"))
                             ],
                             onChanged: (value) {
-                              // name = value;
+                              firstName = value;
                             },
                             style: TextStyle(fontSize: 14),
                             decoration: InputDecoration(
@@ -240,7 +255,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   RegExp(r"[a-zA-Z]+|\s"))
                             ],
                             onChanged: (value) {
-                              // name = value;
+                              lastName = value;
                             },
                             style: TextStyle(fontSize: 14),
                             decoration: InputDecoration(
@@ -305,20 +320,21 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: Container(
                           height: 44,
                           child: TextFormField(
-                            key: ValueKey('name'),
+                            key: ValueKey('phoneno'),
                             keyboardType: TextInputType.name,
                             validator: (value) {
-                              if (value!.length < 10) {
+                              if (value!.length != 10) {
                                 return 'Enter a valid phoneno!';
                               }
                               return null;
                             },
                             inputFormatters: [
+                              LengthLimitingTextInputFormatter(10),
                               FilteringTextInputFormatter.allow(
                                   RegExp(r'[0-9]'))
                             ],
                             onChanged: (value) {
-                              // name = value;
+                              phoneNo = value;
                             },
                             style: TextStyle(fontSize: 14),
                             decoration: InputDecoration(
@@ -326,7 +342,21 @@ class _RegisterPageState extends State<RegisterPage> {
                                 Icons.phone,
                                 color: primaryColor,
                               ),
-                              hintText: 'Enter your last name here',
+                              hintText: 'Enter your 10 digit phone number ',
+                              errorStyle: TextStyle(fontSize: 9, height: 0),
+
+                              errorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
+                              ),
+                              focusedErrorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
+                              ),
                               hintStyle: TextStyle(
                                   fontSize: 14,
                                   color: HexColor("#383838"),
@@ -370,14 +400,21 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: Container(
                           height: 44,
                           child: TextFormField(
-                            key: ValueKey('name'),
+                            key: ValueKey('email'),
                             keyboardType: TextInputType.name,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r"[a-zA-Z]+|\s"))
-                            ],
+
+                              validator: (value) {
+                                bool emailValid = RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(value!);
+                                if (!emailValid) {
+                                  return 'Enter a valid email id!';
+                                }
+                                return null;
+                              },
+
                             onChanged: (value) {
-                              // name = value;
+                              emailId = value;
                             },
                             style: TextStyle(fontSize: 14),
                             decoration: InputDecoration(
@@ -385,7 +422,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 Icons.email,
                                 color: primaryColor,
                               ),
-                              hintText: 'Enter your last name here',
+                              hintText: 'Your email goes here',
                               hintStyle: TextStyle(
                                   fontSize: 14,
                                   color: HexColor("#383838"),
@@ -393,7 +430,20 @@ class _RegisterPageState extends State<RegisterPage> {
                                   fontWeight: FontWeight.w500),
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 15),
+                              errorStyle: TextStyle(fontSize: 9, height: 0),
 
+                              errorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
+                              ),
+                              focusedErrorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
+                              ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(0.0)),
@@ -415,6 +465,40 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                       ),
+
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        "Gender*",
+                        style: titleDefaultTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Radio<String>(
+                            value: 'male',
+                            groupValue: _selectedGender,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedGender = value!;
+                              });
+                            },
+                          ),
+                          Text('Male'),
+                          Radio<String>(
+                            value: 'female',
+                            groupValue: _selectedGender,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedGender = value!;
+                              });
+                            },
+                          ),
+                          Text('Female')
+
+                        ],
+                      ),
                       SizedBox(
                         height: 6,
                       ),
@@ -429,30 +513,98 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: Container(
                           height: 44,
                           child: TextFormField(
-                            key: ValueKey('name'),
-                            keyboardType: TextInputType.name,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r"[a-zA-Z]+|\s"))
-                            ],
+                            key: ValueKey('password'),
+                            obscureText: _obscureText,
+                            validator: (value) {
+                              bool emailValid = RegExp(
+                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                                  .hasMatch(value!);
+                              if (!emailValid || !value.isNotEmpty ) {
+                                return 'Enter a valid password!';
+                              }
+                              return null;
+                            },
                             onChanged: (value) {
+                              password=value;
                               // name = value;
                             },
+
+
                             style: TextStyle(fontSize: 14),
                             decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.lock,
                                 color: primaryColor,
                               ),
-                              hintText: 'Enter your last name here',
-                              hintStyle: TextStyle(
+                              suffixIcon: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _obscureText = _obscureText;
+                                  });
+                                },
+                                child: AnimateIcons(
+                                  startIcon: Icons.visibility_rounded,
+                                  endIcon: Icons.visibility_off,
+                                  size: 20.0,
+                                  controller: controller!,
+                                  onStartIconPress: () {
+                                    setState(() {
+                                      _obscureText = false;
+                                    });
+                                    // _obscureText = true;
+                                    return true;
+                                  },
+                                  onEndIconPress: () {
+                                    setState(() {
+                                      _obscureText = true;
+                                    });
+                                    return true;
+                                  },
+                                  duration: Duration(milliseconds: 200),
+                                  startIconColor: pas
+                                      ? HexColor("#717171")
+                                      : HexColor("#E2E2E2"),
+                                  endIconColor: pas
+                                      ? HexColor("#717171")
+                                      : HexColor("#E2E2E2"),
+                                  clockwise: false,
+                                ),
+
+                                // AnimatedIcon(
+                                //   icon:AnimatedIcons.play_pause,
+                                //   progress: _animationController!,
+                                // ),
+
+                                // Icon(
+                                //   _obscureText
+                                //       ? suffixIcon
+                                //       : Icons.visibility_off,
+                                //   semanticLabel:
+                                //       _obscureText ? 'show password' : 'hide password',
+                                // ),
+                              ),
+                              hintText: 'Password',
+                              hintStyle: const TextStyle(
                                   fontSize: 14,
-                                  color: HexColor("#383838"),
+                                  color: Colors.black,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w500),
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 15),
+                              errorStyle: TextStyle(fontSize: 9, height: 0),
 
+                              errorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
+                              ),
+                              focusedErrorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
+                              ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(0.0)),
@@ -488,12 +640,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: Container(
                           height: 44,
                           child: TextFormField(
-                            key: ValueKey('name'),
-                            keyboardType: TextInputType.name,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r"[a-zA-Z]+|\s"))
-                            ],
+                            key: ValueKey('conpas'),
+                            validator: (value) {
+                              if (!value!.isNotEmpty || password!=value) {
+                                return 'Mismatch the password!';
+                              }
+                              return null;
+                            },
+                            obscureText: true,
+
                             onChanged: (value) {
                               // name = value;
                             },
@@ -503,15 +658,28 @@ class _RegisterPageState extends State<RegisterPage> {
                                 Icons.lock,
                                 color: primaryColor,
                               ),
-                              hintText: 'Enter your last name here',
-                              hintStyle: TextStyle(
+                              hintText: 'Password',
+                              hintStyle: const TextStyle(
                                   fontSize: 14,
-                                  color: HexColor("#383838"),
+                                  color: Colors.black,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w500),
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 15),
+                              errorStyle: TextStyle(fontSize: 9, height: 0),
 
+                              errorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
+                              ),
+                              focusedErrorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(0.0)),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
+                              ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(0.0)),
@@ -614,4 +782,5 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     });
   }
+
 }

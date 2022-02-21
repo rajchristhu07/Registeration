@@ -3,17 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:neosoftflutter/utility/theme.dart';
 
+import '../../model/user_model.dart';
+import '../../utility/image_utility.dart';
 import '../../utility/text_style.dart';
 
 class CustomUserDetailDialogBox extends StatefulWidget {
-  final String title, descriptions, text;
+   User data;
 
-  const CustomUserDetailDialogBox(
-      {Key? key,
-      required this.title,
-      required this.descriptions,
-      required this.text})
-      : super(key: key);
+  CustomUserDetailDialogBox(this.data);
+
 
   @override
   _CustomDialogBoxState createState() => _CustomDialogBoxState();
@@ -99,13 +97,12 @@ class _CustomDialogBoxState extends State<CustomUserDetailDialogBox> {
                                   child: SizedBox.fromSize(
                                     size: const Size.fromRadius(30),
                                     // Image radius
-                                    child: Image.asset("assets/pic.jpg",
-                                        height: 60.0, width: 60.0, fit: BoxFit.cover),
+                                    child: ImageUtility.imageFromBase64String(widget.data.picture!),
                                   ),
                                 ),
                                 SizedBox(height: 10,),
-                                Text("raj@gmail.com",style: titleMediumDefaultTextStyle,),
-                                Text("9597138105",style: titleMediumDefaultTextStyleBlack,),
+                                Text(widget.data.emailId.toString(),style: titleMediumDefaultTextStyle,),
+                                Text(widget.data.mobileNo.toString(),style: titleMediumDefaultTextStyleBlack,),
                               ],
                             )
 
@@ -125,7 +122,7 @@ class _CustomDialogBoxState extends State<CustomUserDetailDialogBox> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  "Raj",
+                                  widget.data.firstName!+widget.data.lastName!,
                                   //         widget.contentList[index].name.toString(),
                                   softWrap: true,
                                   style: TextStyle(
@@ -151,7 +148,7 @@ class _CustomDialogBoxState extends State<CustomUserDetailDialogBox> {
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width/2,
                                   child:    Text(
-                                    "jbhabsdhjbs dhubsabdubasd yasdabsdyasua asdhbasduasbdbas dubudasbdasbdbbasd  ydasbhasubdasbudb ydasbduyas",
+                                    widget.data.address!+", "+widget.data.landmark!+", "+ widget.data.city!+", "+ widget.data.state!+", "+ widget.data.pincode!+" ",
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: HexColor("#1C1C1C"),
