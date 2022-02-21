@@ -3,10 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:neosoftflutter/model/user_model.dart';
+import 'package:neosoftflutter/utility/image_utility.dart';
 
 import '../custom_widget/user_dialog.dart';
 
 class UserList extends StatefulWidget {
+  User data;
+  UserList(this.data, {Key? key}) : super(key: key);
+
   @override
   _UserListState createState() => _UserListState();
 }
@@ -51,7 +56,7 @@ class _UserListState extends State<UserList> {
                       borderRadius: BorderRadius.circular(100),
                       child: SizedBox.fromSize(
                         size: const Size.fromRadius(30), // Image radius
-                        child: Image.asset("assets/pic.jpg",
+                        child:widget.data.picture!=null? ImageUtility.imageFromBase64String(widget.data.picture!):Image.asset(  "assets/pic.jpg",
                             height: 60.0, width: 60.0, fit: BoxFit.cover),
                       ),
                     ),
@@ -72,7 +77,7 @@ class _UserListState extends State<UserList> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Maria ",
+                              widget.data.firstName!,
                               overflow: TextOverflow.ellipsis,
                               softWrap: true,
                               style: TextStyle(
@@ -84,7 +89,7 @@ class _UserListState extends State<UserList> {
                               height: 6,
                             ),
                             Text(
-                              "Maria  ",
+                              widget.data.lastName!,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: 14,
